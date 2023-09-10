@@ -1,0 +1,16 @@
+*.pyc
+.env
+*.pkl
+*.parquet
+*.bin
+.idea
+.vscode
+.pytest_cache
+.DS_Store
+/db/*.*
+/log/*.*
+/examples/log/*.*
+examples/db/*.*
+playground/log/*.*
+test/*.html
+test/log/*.*

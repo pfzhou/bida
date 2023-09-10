@@ -1,0 +1,25 @@
+{
+    "function_protocol": "py file name",
+    "functions":
+    [
+        {
+            "name": "function name",
+            "description": "The detailed description of the function.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "param1": {
+                        "type": "string",
+                        "description": "The detailed description of the param."
+                    },
+                    "param2": {
+                        "type": "string",
+                        "enum": ["type1", "type2"],
+                        "description": "The detailed description of the param."
+                    }
+                },
+                "required": ["param1"]
+            }
+        }
+    ]
+}

@@ -1,0 +1,122 @@
+{
+    "model_type": "baidu-third",
+    "alias": "baidu-thirdmodels, baidu-3rd",
+    "api_protocol": "baidu_thirdmodels_api:baidu_thirdmodels_api",   
+    "api_config":{  
+        "api_key": {
+            "default": "" ,
+            "env":"baidu_wenxin_api_key"
+        },
+        "secret_key": {
+            "default": "" ,
+            "env":"baidu_wenxin_secret_key"
+        }, 
+        "access_token_url": {
+            "default": "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}",
+            "env":""
+        },
+        "model_baseurls": {
+            "bloomz-7b": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/bloomz_7b1",
+                "env":""
+            },
+            "Qianfan-BLOOMZ-7B-compressed": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/qianfan_bloomz_7b_compressed",
+                "env":""
+            },
+            "llama-2-7b-chat": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/llama_2_7b",
+                "env":""
+            },
+            "llama-2-13b-chat": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/llama_2_13b",
+                "env":""
+            },
+            "llama-2-70b-chat": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/llama_2_70b",
+                "env":""
+            },
+            "Qianfan-Chinese-Llama-2-7B": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/qianfan_chinese_llama_2_7b",
+                "env":""
+            },
+            "ChatGLM2-6B-32K": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/chatglm2_6b_32k",
+                "env":""
+            },
+            "bge-large-zh": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/embeddings/bge_large_zh" ,
+                "env":""
+            },
+            "bge-large-en": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/embeddings/bge_large_en" ,
+                "env":""
+            }
+        }
+    },
+    "chat_completions": [
+        {
+            "name": "bloomz-7b",
+            "alias": "bloomz, bloomz7b",
+            "max_tokens": 2000,
+            "is_default": true,
+            "description": "Bloomz 7B版本"
+        },
+        {
+            "name": "Qianfan-BLOOMZ-7B-compressed",
+            "alias": "qianfan-bloomz-7b, qfb-7b, qfb7b",
+            "max_tokens": 2000,
+            "is_default": false,
+            "description": "Qianfan-BLOOMZ-7B-compressed是千帆团队在BLOOMZ-7B基础上的压缩版本"
+        },
+        {
+            "name": "llama-2-7b-chat",
+            "alias": "llama-7b, llama2-7b, llama27b, llama7b",
+            "max_tokens": 2000,
+            "is_default": false,
+            "description": "Llama-2-7b-chat由Meta AI研发并开源"
+        },
+        {
+            "name": "llama-2-13b-chat",
+            "alias": "llama-13b, llama2-13b, llama213b, llama13b",
+            "max_tokens": 2000,
+            "is_default": false,
+            "description": "Llama-2-13b-chat由Meta AI研发并开源"
+        },
+        {
+            "name": "llama-2-70b-chat",
+            "alias": "llama-70b, llama2-70b, llama270b, llama70b",
+            "max_tokens": 2000,
+            "is_default": false,
+            "description": "Llama-2-70b-chat由Meta AI研发并开源"
+        },
+        {
+            "name": "Qianfan-Chinese-Llama-2-7B",
+            "alias": "QianfanChineseLlama27B, qfch-7b",
+            "max_tokens": 2000,
+            "is_default": false,
+            "description": "Qianfan-Chinese-Llama-2-7B是千帆团队在Llama-2-7b基础上的中文增强版本"
+        },
+        {
+            "name": "ChatGLM2-6B-32K",
+            "alias": "ChatGLM26B32K, chatglm32k",
+            "max_tokens": 32000,
+            "is_default": false,
+            "description": "ChatGLM2-6B-32K是在ChatGLM2-6B的基础上进一步强化了对于长文本的理解能力，能够更好的处理最多32K长度的上下文"
+        }
+    ],
+    "embeddings": [
+        {
+            "name": "bge-large-zh",
+            "alias": "bgelargezh",
+            "is_default": true,
+            "description": "bge-large-zh是由智源研究院研发的中文版文本表示模型"
+        },
+        {
+            "name": "bge-large-en",
+            "alias": "bgelargeen",
+            "is_default": false,
+            "description": "bge-large-en是由智源研究院研发的英文版文本表示模型"
+        }
+    ]
+}

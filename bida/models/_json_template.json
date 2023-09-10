@@ -1,0 +1,24 @@
+{    
+    "model_type": "company name",
+    "alias": "easy to remember name",
+    "api_protocol": "py file name:class name", 
+    "api_config":{   
+        "api_key": {
+            "default": "",
+            "env":"your api key"
+        } 
+    },
+    "chat_completions": [
+        {
+            "name": "model name",
+            "alias": "easy to remember name",
+            "max_tokens": 4096,
+            "is_default": true,
+            "description": "model description"
+        }
+    ],
+    "completions": [
+    ],
+    "embeddings": [
+    ]
+}

@@ -1,0 +1,48 @@
+{
+    "model_type": "minimax",
+    "alias": "mm, mm-cc, minimax-cc",
+    "api_protocol": "minimax_api:minimax_cc_api",   
+    "api_config":{  
+        "api_key": {
+            "default": "" ,
+            "env":"minimax_api_key"
+        },
+        "group_id": {
+            "default": "" ,
+            "env":"minimax_groupID"
+        }, 
+        "chat_completions_baseurl": {
+            "default": "https://api.minimax.chat/v1/text/chatcompletion",
+            "env":""
+        },
+        "embeddings_baseurl": {
+            "default": "https://api.minimax.chat/v1/embeddings" ,
+            "env":""
+        }
+    },
+    "chat_completions": [
+        {
+            "name": "abab5.5-chat",
+            "alias": "abab5.5, pro, 5.5",
+            "is_default": true,
+            "max_tokens": 16384,
+            "description": "Chatcompletion pro默认版本，16K"
+        },
+        {
+            "name": "abab5-chat",
+            "alias": "abab5, 5.0",
+            "is_default": false,
+            "max_tokens": 6144,
+            "description": "chat5.0版本，不支持pro接口，6K"
+        }
+    ],
+    "embeddings": [
+        {
+            "name": "embo-01",
+            "alias": "embedding",
+            "is_default": true,
+            "max_tokens": 4096,
+            "description": "minimax的embedding模型，4K"
+        }
+    ]
+}

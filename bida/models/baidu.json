@@ -1,0 +1,57 @@
+{
+    "model_type": "baidu",
+    "alias": "wenxinyiyan, wenxin, wxyy",
+    "api_protocol": "baidu_api:baidu_wenxin_api",   
+    "api_config":{  
+        "api_key": {
+            "default": "" ,
+            "env":"baidu_wenxin_api_key"
+        },
+        "secret_key": {
+            "default": "" ,
+            "env":"baidu_wenxin_secret_key"
+        }, 
+        "access_token_url": {
+            "default": "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}",
+            "env":""
+        },
+        "model_baseurls": {
+            "ernie-bot": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions",
+                "env":""
+            },
+            "ernie-bot-turbo":{
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/eb-instant",
+                "env":""
+            },
+            "embedding_v1": {
+                "default": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/embeddings/embedding-v1" ,
+                "env":""
+            }
+        }
+    },
+    "chat_completions": [
+        {
+            "name": "ernie-bot",
+            "alias": "erniebot, ernie",
+            "max_tokens": 2000,
+            "is_default": true,
+            "description": "文心一言默认版本"
+        },
+        {
+            "name": "ernie-bot-turbo",
+            "alias": "erniebot-turbo, erniebotturbo, turbo",
+            "max_tokens": 11200,
+            "is_default": false,
+            "description": "文心一言微调的chat版本，内置ERNIE-Bot-turbo系列最新版模型ERNIE-Bot-turbo-0725"
+        }
+    ],
+    "embeddings": [
+        {
+            "name": "embedding_v1",
+            "alias": "embedding",
+            "is_default": true,
+            "description": "文心一言的embedding模型"
+        }
+    ]
+}

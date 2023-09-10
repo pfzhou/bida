@@ -1,0 +1,34 @@
+{
+    "function_protocol": "search_web",
+    "functions":    
+    [
+        {
+            "name": "search_google",
+            "description": "If the required information cannot be found, use Google search online",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "search content"
+                    }
+                },
+                "required": ["query"]
+            }
+        },
+        {
+            "name": "search_baidu",
+            "description": "如果查不到答案需要联网搜索且google无法使用时，使用百度搜索",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "search content"
+                    }
+                },
+                "required": ["query"]
+            }
+        }
+    ]
+}

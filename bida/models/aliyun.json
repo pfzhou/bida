@@ -1,0 +1,47 @@
+{
+    "model_type": "aliyun",
+    "alias": "ali, alicloud, qiwen, tongyiqianwen, tyqw",
+    "api_protocol": "aliyun_api:aliyun_tongyiqianwen_api",   
+    "api_config":{   
+        "api_key": {
+            "default": "",
+            "env":"ali_qw_api_key"
+        }
+    },
+    "chat_completions": [
+        {
+            "name": "qwen-plus-v1",
+            "alias": "qianwen, qwen, tyqw,plus-v1",
+            "is_default": true,
+            "description": "通义千问超大规模语言模型增强版，支持中文英文等不同语言输入"
+        },
+        {
+            "name": "qwen-v1",
+            "alias": "v1",
+            "is_default": false,
+            "description": "通义千问超大规模语言模型，支持中文英文等不同语言输入"
+        }
+    ],
+    "completions": [
+        {
+            "name": "qwen-plus-v1",
+            "alias": "qwen, tyqw,plus-v1",
+            "is_default": true,
+            "description": "通义千问超大规模语言模型增强版，支持中文英文等不同语言输入"
+        },
+        {
+            "name": "qwen-v1",
+            "alias": "v1",
+            "is_default": false,
+            "description": "通义千问超大规模语言模型，支持中文英文等不同语言输入"
+        }
+    ],
+    "embeddings": [
+        {
+            "name": "text-embedding-v1",
+            "alias": "embedding, textv1, v1",
+            "is_default": true,
+            "description": "阿里通义千问的embedding模型"
+        }
+    ]
+}

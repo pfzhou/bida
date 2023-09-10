@@ -1,0 +1,119 @@
+{    
+    "model_type": "openai",
+    "alias": "open_ai, open-ai",
+    "api_protocol": "openai_api:openai_api_v1", 
+    "api_config":{    
+        "api_base": {
+            "default": "https://api.openai.com/v1",
+            "env":"OPENAI_BASE_URL"
+        },
+        "api_key": {
+            "default": "",
+            "env":"OPENAI_API_KEY"
+        },
+        "organization":{
+            "default": "",
+            "env":""
+        },
+        "proxy": {
+            "default": null,
+            "env":"OPENAI_PROXY"
+        }
+    },
+    "chat_completions": [
+        {
+            "name": "gpt-3.5-turbo",
+            "alias": "gpt3.5, gpt-3.5, 3.5，gpt4K, 4k",
+            "max_tokens": 4096,
+            "is_default": true,
+            "description": "openai适配“/v1/chat/completions”的模型，3.5-4k版本， 包括：gpt-3.5-turbo-0301，gpt-3.5-turbo-0613"
+        },
+        {
+            "name": "gpt-3.5-turbo-0301",
+            "alias": "gpt3.5-0301, gpt-3.5-0301, 3.5-0301",
+            "max_tokens": 4096,
+            "is_default": false,
+            "description": "openai适配“/v1/chat/completions”的模型，3.5-4k版本"
+        },
+        {
+            "name": "gpt-3.5-turbo-0613",
+            "alias": "gpt3.5-0613, gpt-3.5-0613, 3.5-0613",
+            "max_tokens": 4096,
+            "is_default": false,
+            "description": "openai适配“/v1/chat/completions”的模型，3.5-4k版本"
+        },
+        {
+            "name": "gpt-3.5-turbo-16k",
+            "alias": "gpt3.5-16k, gpt-3.5-16k, gpt-16k, gpt-16k, gpt16k, 16k",
+            "max_tokens": 16384,
+            "is_default": false,
+            "description": "openai适配“/v1/chat/completions”的模型，3.5-16k版本， 包括：gpt-3.5-turbo-16k-0613"
+        },
+        {
+            "name": "gpt-3.5-turbo-16k-0613",
+            "alias": "gpt3.5-16k-0613, gpt-3.5-16k-0613, gpt-16k-0613, gpt-16k-0613, 16k-0613，16K0613",
+            "max_tokens": 16384,
+            "is_default": false,
+            "description": "openai适配“/v1/chat/completions”的模型，3.5-16k版本"
+        },
+        {
+            "name": "gpt-4",
+            "max_tokens": 8192,
+            "alias": "gpt4, gpt8k, 8k",
+            "is_default": false,
+            "description": "openai适配“/v1/chat/completions”的模型，4.0-8k版本，包括：gpt-4-0314，gpt-4-0613"
+        },
+        {
+            "name": "gpt-4-0314",
+            "max_tokens": 8192,
+            "alias": "gpt4-0314, 8k-0314",
+            "is_default": false,
+            "description": "openai适配“/v1/chat/completions”的模型，4.0-8k版本"
+        },
+        {
+            "name": "gpt-4-0613",
+            "max_tokens": 8192,
+            "alias": "gpt4-0613, 8k-0613",
+            "is_default": false,
+            "description": "openai适配“/v1/chat/completions”的模型，4.0-8k版本"
+        },
+        {
+            "name": "gpt-4-32k",
+            "max_tokens": 32768,
+            "alias": "gpt4-32k, 32k",
+            "is_default": false,
+            "description": "openai适配“/v1/chat/completions”的模型，4.0-32k版本，包括：gpt-4-32k-0314，gpt-4-32k-0613"
+        },
+        {
+            "name": "gpt-4-32k-0314",
+            "max_tokens": 32768,
+            "alias": "gpt4-32k-0314, 32k-0314",
+            "is_default": false,
+            "description": "openai适配“/v1/chat/completions”的模型，4.0-32k版本"
+        },
+        {
+            "name": "gpt-4-32k-0613",
+            "max_tokens": 32768,
+            "alias": "gpt4-32k-0613, 32k-0613",
+            "is_default": false,
+            "description": "openai适配“/v1/chat/completions”的模型，4.0-32k版本"
+        }
+    ],
+    "completions": [
+        {
+            "name": "text-davinci-003",
+            "max_tokens": 4097,
+            "alias": "text003, davinci003, davinci-003",
+            "is_default": true,
+            "description": "openai适配“/v1/completions”的模型"
+        }
+    ],
+    "embeddings": [
+        {
+            "name": "text-embedding-ada-002",
+            "alias": "ada, ada2, ada002, ada-002",
+            "is_default": true,
+            "description": "openai适配“/v1/embeddings”的模型"
+        }
+    ]
+}
