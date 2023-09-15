@@ -1,0 +1,67 @@
+{
+    "model_type": "xfyun",
+    "alias": "xyxinghuo, xinghuo, xunfei, xfxh",
+    "api_protocol": "xfyun_api:xfyun_xinghuo_api",   
+    "api_config":{  
+        "api_key": {
+            "default": "" ,
+            "env":"xfyun_xinghuo_api_key"
+        },
+        "secret_key": {
+            "default": "" ,
+            "env":"xfyun_xinghuo_secret_key"
+        }, 
+        "app_id": {
+            "default": "" ,
+            "env":"xfyun_xinghuo_app_id"
+        },
+        "model_baseurls": {
+            "xinghuo-v1.5": {
+                "default": "wss://spark-api.xf-yun.com/v1.1/chat",
+                "env":""
+            },
+            "xinghuo-v2":{
+                "default": "wss://spark-api.xf-yun.com/v2.1/chat",
+                "env":""
+            },
+            "embedding": {
+                "default": "https://knowledge-retrieval.cn-huabei-1.xf-yun.com/v1/aiui/embedding/query",
+                "env":""
+            }
+        },
+        "model_domains": {
+            "xinghuo-v1.5": {
+                "default": "general",
+                "env":""
+            },
+            "xinghuo-v2":{
+                "default": "generalv2",
+                "env":""
+            }
+        }
+    },
+    "chat_completions": [
+        {
+            "name": "xinghuo-v1.5",
+            "alias": "v1.5",
+            "max_tokens": 8192,
+            "is_default": true,
+            "description": "讯飞星火认知大模型V1.5"
+        },
+        {
+            "name": "xinghuo-v2",
+            "alias": "v2",
+            "max_tokens": 8192,
+            "is_default": false,
+            "description": "讯飞星火认知大模型V2.0"
+        }
+    ],
+    "embeddings": [
+        {
+            "name": "embedding",
+            "alias": "embeddings",
+            "is_default": true,
+            "description": "星火大模型的embedding模型"
+        }
+    ]
+}

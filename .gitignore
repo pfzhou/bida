@@ -14,3 +14,6 @@ examples/db/*.*
 playground/log/*.*
 test/*.html
 test/log/*.*
+*.egg-info
+build/
+dist/

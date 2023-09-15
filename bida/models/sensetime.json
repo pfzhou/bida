@@ -1,0 +1,31 @@
+{
+    "model_type": "senstime",
+    "alias": "shangtang",
+    "api_protocol": "sensetime_api:sensetime_api",
+    "api_config":{
+        "access_key_id": {
+            "default": "" ,
+            "env":"sensetime_access_key"
+        },
+        "secret_access_key": {
+            "default": "" ,
+            "env":"sensetime_secret_key"
+        }
+    },
+    "chat_completions": [
+        {
+            "name": "nova-ptc-xl-v1",
+            "alias": "xl,nova-xl",
+            "is_default": true,
+            "max_tokens": 2048,
+            "description": "商汤科技SenseNova日日新开放平台官方大语言模型，大参数版本"
+        },
+        {
+            "name": "nova-ptc-xs-v1",
+            "alias": "xs,nova-xs",
+            "is_default": false,
+            "max_tokens": 2048,
+            "description": "商汤科技SenseNova日日新开放平台官方大语言模型，小参数版本"
+        }
+    ]
+}

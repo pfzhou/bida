@@ -1,5 +1,80 @@
 # bida：简单、易用、稳定、高效，便于扩展和集成的，大语言模型工程化开发框架
 
+## 快速上手
+
+1. 从pip或pip3安装最新的bida
+```cmd
+pip install -U bida
+```
+
+2. 新建py文件或Jupyter Notebook：
+
+```python
+from bida import ChatLLM
+
+llm = ChatLLM(
+    model_type='openai',                                # 调用openai的chat模型
+    model_name='gpt-4')                                 # 设定模型为：gpt-4，默认是gpt3.5
+
+result = llm.chat("从1加到100等于多少？只计算奇数相加呢？") 
+print(result)
+```
+```python
+from bida import ChatLLM
+
+# 定义一个处理流式输出的函数，这里仅显示每次返回的内容，不做其他处理
+def my_stream_process_data(data):            
+    print(data, end="", flush=True)
+
+llm = ChatLLM(
+    model_type="baidu",                                 # 调用百度文心一言
+    stream_callback=my_stream_process_data)             # 流式输出
+
+llm.chat("你好呀，请问你是谁？") 
+```
+
+
+
+## 已支持模型 ( 持续更新中... )
+
+| 模型公司         | 模型类型  | 模型名称         |  是否支持   | 说明                      |
+|:---------------:|:---------:|:---------------:| :--------: |:--------------------------|
+| OpenAI | [Chat](https://platform.openai.com/docs/api-reference/chat)   | gpt-3.5，gpt-4   |  √ | 支持gpt3.5和gpt4全部模型  |
+| | [Text Completion](https://platform.openai.com/docs/api-reference/completions) | text-davinci-003 |  √ | Text 生成类模型   |
+| | [Embeddings](https://platform.openai.com/docs/api-reference/embeddings)   | text-embedding-ada-002 | √ | 向量化模型 |
+| |
+| 百度-文心一言 | Chat | [ernie-bot](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/jlil56u11), [ernie-bot-turbo](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/4lilb2lpf) | √ | 百度商用Chat模型  |
+| | Embeddings  | [embedding_v1](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/alj562vvu)  |  √ | 百度商用向量化模型 |
+| | 托管模型 | [各类开源模型](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Nlks5zkzu) | √ | 百度托管的各类开源模型，请使用百度第三方模型接入协议自行配置，详见下文的模型接入章节 |
+| |
+| 阿里云-通义千问  | Chat | [qwen-v1, qwen-plus-v1](https://help.aliyun.com/zh/dashscope/developer-reference/api-details?spm=a2c4g.11186623.0.0.6160416fZvec2K), [qwen-7b-chat-v1](https://help.aliyun.com/zh/dashscope/developer-reference/api-details-12?spm=a2c4g.11186623.0.0.5f1d7abe3hDzoF) |  √  | 阿里云商用和开源Chat模型 |
+| | Embeddings  | [text-embedding-v1](https://help.aliyun.com/zh/dashscope/developer-reference/generic-text-vector/?spm=a2c4g.11186623.0.0.4c7a7ba0PtIctI)  | √ | 阿里云商用向量化模型  |
+| | 托管模型 | [各类开源模型](https://dashscope.console.aliyun.com/model?spm=5176.28072958.J_2026023950.2.49c8764fIXrFly) | √ | 阿里云托管的其他各类开源模型，请使用阿里云第三方模型接入协议自行配置，详见下文的模型接入章节 |
+| |
+| MiniMax  | [Chat](https://api.minimax.chat/document/guides/chat?id=6433f37294878d408fc82953) | abab5, abab5.5 |  √  | MiniMax商用Chat模型 |
+| | [Chat Pro](https://api.minimax.chat/document/guides/chat-pro?id=64b79fa3e74cddc5215939f4) | abab5.5 | √ | MiniMax商用Chat模型, 采用[自定义Chatcompletion pro模式](https://api.minimax.chat/document/tuning-guide?id=64841821346c0de66a730bd5)，[支持多人多bot对话场景，示例对话，返回格式限制，函数调用，插件等功能](examples/MINIMAX模型调用说明.ipynb) |
+| | [Embeddings](https://api.minimax.chat/document/guides/embeddings?id=6464722084cdc277dfaa966a) | embo-01 | √ | MiniMax商用向量模型 |
+| |
+| 智谱AI-ChatGLM | Chat | [ChatGLM-Pro、Std、Lite](https://open.bigmodel.cn/dev/api#overview), [characterglm](https://open.bigmodel.cn/dev/api#super-humanoid) | √ | 智谱AI多版本商用大模型 |
+| | Embeddings | [Text-Embedding](https://open.bigmodel.cn/dev/api#vector) | √ | 智谱AI商用文本向量模型 |
+| |
+| 讯飞-星火 | Chat | [SparkDesk V1.5, V2.0](https://www.xfyun.cn/doc/spark/Web.html) | √ | 讯飞星火认知大模型 |
+| | Embeddings | [embedding](https://www.xfyun.cn/doc/spark/embedding_api.html) | √ | 讯飞星火文本向量模型 |
+| |
+| 商汤-日日新 | Chat | [nova-ptc-xl-v1, nova-ptc-xs-v1](https://platform.sensenova.cn/#/doc?path=/chat/GetStarted/APIList.md) | √ | SenseNova 商汤日日新大模型 |
+| |
+| 百川智能 | Chat | [baichuan-53b-v1.0.0](https://platform.baichuan-ai.com/docs/api) | √ | 百川53B大模型 |
+| |
+| 自行部署的开源模型 | Chat, Completion, Embeddings | 各类开源模型 | √ | 使用[FastChat](https://github.com/lm-sys/FastChat)等部署的开源模型，提供的Web API接口遵循[OpenAI-Compatible RESTful APIs](https://github.com/lm-sys/FastChat/blob/main/docs/openai_api.md)，可以直接支持，详见下文的模型接入章节 |
+| |
+
+**注意**：
+
+1. 以上模型和API能否使用，依赖自行购买开通的模型范围，相关Key需配置完成后才可以（详见下面环境变量章节），购买及开通请联系厂商咨询。
+2. 如果需要增加模型或增加新的模型公司进来，请参考下面的模型接入章节。
+3. 如果希望适配你们的模型或提出改进意见，请联系**pfzhou@gmail.com**
+
+
 ## 缘起与定位
 
 ### - 开发人员切换到面向AIGC开发非常困难
@@ -51,52 +126,25 @@ langchain做为业内领军的开源项目，为大模型以及AGI的推广做�
 
 ### - 因此， 基于以上几点，我们希望根据当前主流开发人员和企业应用开发的特点，搭建一个简单、易用、稳定、高效，便于扩展和集成的大语言模型工程化开发框架，大幅消减开发AI产品的难度和周期。
 
-## 已支持模型 ( 持续更新中... )
-
-| 模型公司         | 模型类型  | 模型名称         |  是否支持   | 说明                      |
-|:---------------:|:---------:|:---------------:| :--------: |:--------------------------|
-| OpenAI | [Chat](https://platform.openai.com/docs/api-reference/chat)   | gpt-3.5，gpt-4   |  √ | 支持gpt3.5和gpt4全部模型  |
-| | [Completion](https://platform.openai.com/docs/api-reference/completions) | text-davinci-003 |  √ | Text 生成类模型   |
-| | [Embeddings](https://platform.openai.com/docs/api-reference/embeddings)   | text-embedding-ada-002 | √ | 向量化模型 |
-| | [Audio](https://platform.openai.com/docs/api-reference/audio)   | whisper-1  | 测试中 | 语音转文字模型  |
-| |
-| 百度-文心一言 | Chat | [ernie-bot](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/jlil56u11), [ernie-bot-turbo](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/4lilb2lpf) | √ | 百度商用Chat模型  |
-| | Chat | [Llama-2 系列](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Rlki1zlai) | √ | 百度托管的Llama-2 系列模型 |
-| | Embeddings  | [embedding_v1](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/alj562vvu)  |  √ | 百度商用向量化模型 |
-| | 托管模型 | [各类开源模型](https://cloud.baidu.com/doc/WENXINWORKSHOP/s/Nlks5zkzu) | √ | 百度托管的各类开源模型，请使用百度第三方模型接入协议自行配置，详见下文的模型接入章节 |
-| |
-| 阿里云-通义千问  | Chat | [qwen-v1, qwen-plus-v1](https://help.aliyun.com/zh/dashscope/developer-reference/api-details?spm=a2c4g.11186623.0.0.6160416fZvec2K) |  √  | 阿里云商用Chat模型 |
-| | Chat | [qwen-7b-v1, qwen-7b-chat-v1](https://help.aliyun.com/zh/dashscope/developer-reference/api-details-12?spm=a2c4g.11186623.0.0.5f1d7abe3hDzoF) | √ | 阿里云开源Chat模型 |
-| | Embeddings  | [text-embedding-v1](https://help.aliyun.com/zh/dashscope/developer-reference/generic-text-vector/?spm=a2c4g.11186623.0.0.4c7a7ba0PtIctI)  | √ | 阿里云商用向量化模型  |
-| | Audio | [Paraformer](https://help.aliyun.com/zh/dashscope/developer-reference/paraformer-speech-recognition/?spm=a2c4g.11186623.0.0.250d6408lOWcp4) | 测试中 | 阿里云语音识别模型 |
-| | 托管模型 | [各类开源模型](https://dashscope.console.aliyun.com/model?spm=5176.28072958.J_2026023950.2.49c8764fIXrFly) | √ | 阿里云托管的其他各类开源模型，请使用阿里云第三方模型接入协议自行配置，详见下文的模型接入章节 |
-| |
-| MiniMax  | Chat | [abab5, abab5.5](https://api.minimax.chat/document/guides/chat?id=6433f37294878d408fc82953) |  √  | MiniMax商用Chat模型 |
-| | Chat Pro | [abab5.5](https://api.minimax.chat/document/guides/chat-pro?id=64b79fa3e74cddc5215939f4) | √ | MiniMax商用Chat模型, 采用[自定义Chatcompletion pro模式](https://api.minimax.chat/document/tuning-guide?id=64841821346c0de66a730bd5)，[支持多人多bot对话场景，示例对话，返回格式限制，函数调用，插件等功能](examples/MINIMAX模型调用说明.ipynb) |
-| | Embeddings | [embo-01](https://api.minimax.chat/document/guides/embeddings?id=6464722084cdc277dfaa966a) | √ | MiniMax商用向量模型 |
-| | Audio | [speech-01](https://api.minimax.chat/document/guides/tts?id=645e0352eb82db92fba9ac28) | 测试中 | MiniMax商用语音生成模型 |
-| |
-| 自行部署的开源模型 | Chat, Completion, Embeddings | 各类开源模型 | √ | 使用[FastChat](https://github.com/lm-sys/FastChat)等部署的开源模型，提供的Web API接口遵循[OpenAI-Compatible RESTful APIs](https://github.com/lm-sys/FastChat/blob/main/docs/openai_api.md)，可以直接支持，详见下文的模型接入章节 |
-| |
-
-**注意**：
-
-1. 以上模型和API能否使用，依赖自行购买开通的模型范围，相关Key需配置完成后才可以（详见下面环境变量章节），购买及开通请联系厂商咨询。
-2. 如果需要增加模型或增加新的模型公司进来，请参考下面的模型接入章节。
 
 ## 使用说明
 
 ### 1. 初始化环境
 
-#### 1.1 安装必要的Python包
-
+#### 1.1 安装bida
+从pip或pip3安装最新的bida
+```cmd
+pip install -U bida
 ```
+
+从github clone项目代码到本地目录：
+```cmd
+git clone https://github.com/pfzhou/bida.git
 pip install -r requirements.txt
 ```
-
 #### 1.2 配置环境变量
 
-移除当前代码根目录下面的文件： **[".env.template"](.env.template)** 的扩展名，建立 **".env"** 环境变量文件。请根据文件中的说明，把已经申请模型的key配置进去。
+修改当前代码根目录下面的文件： **[".env.template"](.env.template)** 的扩展名，成为 **".env"** 环境变量文件。请根据文件中的说明，把**已经申请模型的key**配置进去。
 
 **请注意**：该文件已经加入忽略清单，不会被传到git服务器。
 
@@ -114,14 +162,22 @@ pip install -r requirements.txt
 llm = ChatLLM(model_type="openai")
 # baidu
 llm = ChatLLM(model_type="baidu")
-# baidu Llama2
-llm = ChatLLM(model_type="baidu-llama2")
+# baidu third models（llama-2...）
+llm = ChatLLM(model_type="baidu-third")
 # aliyun
 llm = ChatLLM(model_type="aliyun")
 # minimax
 llm = ChatLLM(model_type="minimax")
 # minimax ccp
 llm = ChatLLM(model_type="minimax-ccp")
+# zhipu ai
+llm = ChatLLM(model_type="chatglm2")
+# xunfei xinghuo
+llm = ChatLLM(model_type="xfyun")
+# senstime
+llm = ChatLLM(model_type="senstime")
+# baichuan ai
+llm = ChatLLM(model_type="baichuan")
 ```
 
 #### 2.1 Chat模式
@@ -276,17 +332,21 @@ Embeddings技术是实现Prompt inContext Learning最重要的技术，对比以
 
 **注意**：不同模型embedding出来的数据是不通用的，因此检索时问题的embedding也要用同一个模型才可以。
 
-| 模型名称 | 输出维度 | 批处理记录数 | 单字符串token |
+| 模型名称 | 输出维度 | 批处理记录数 | 单条文本token限制 |
 | :---:  | :---: | :---: | :---: |
 | OpenAI | 1536 | 不限 | 8191 |
 | 百度 | 384 | 16 | 384 |
 | 阿里 | 1536 | 10 | 2048 |
 | MiniMax | 1536 | 不限 | 4096 |
+| 智谱AI | 1024 | 单条 | 512 |
+| 讯飞星火 | 1024 | 单条 | 256 |
+
+**注意：** bida的embedding接口支持批处理，超过模型批处理限制会自动分批循环处理后一起返回。单条文本内容超过限制token数，根据模型的逻辑，有的会报错，有的会截断处理。
 
 > 详细示例参看：[examples\2.6.Embeddings嵌入模型.ipynb](examples/2.6.Embeddings嵌入模型.ipynb)
 
 
-### 3. 模型接入说明
+## 模型接入说明
 
 1. bida\models\目录下建立一个模型配置json文件
 2. 编写具体模型实现方法的py文件
@@ -294,7 +354,7 @@ Embeddings技术是实现Prompt inContext Learning最重要的技术，对比以
    详细内容见：[模型接入手册](bida/models/README.md)
 
 
-### 4. bida框架结构
+## bida框架结构
 
 ```
 ├─bida                          # bida框架主目录
@@ -317,3 +377,6 @@ Embeddings技术是实现Prompt inContext Learning最重要的技术，对比以
 │ README.md                     # 本说明文件
 │ requirements.txt              # 相关依赖包
 ```
+## 联系方式
+#### pfzhou@gmail.com
+我们希望可以适配更多的模型，也欢迎您提出宝贵意见，一起为开发者提供更好的产品！

@@ -1,0 +1,32 @@
+{
+    "model_type": "baichuan",
+    "alias": "",
+    "api_protocol": "baichuan_api:baichuan_api",
+    "api_config":{
+        "api_key": {
+            "default": "" ,
+            "env":"baichuan_api_key"
+        },
+        "secret_key": {
+            "default": "" ,
+            "env":"baichuan_secret_key"
+        },
+        "api_url_stream": {
+            "default": "https://api.baichuan-ai.com/v1/stream/chat",
+            "env":""
+        },
+        "api_url": {
+            "default": "https://api.baichuan-ai.com/v1/chat",
+            "env":""
+        }
+    },
+    "chat_completions": [
+        {
+            "name": "baichuan-53b-v1.0.0",
+            "alias": "53b,baichuan53b,baichuan-53b",
+            "is_default": true,
+            "max_tokens": 4096,
+            "description": "百川模型chat接口，仅支持chat模型,4k tokens"
+        }
+    ]
+}

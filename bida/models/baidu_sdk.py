@@ -6,7 +6,7 @@ from bida import Util
 
 class baidu_wenxin():
     '''
-    百度文心一言的http调用封装类，支持大模型和Embedding模型的同步、异步调用。
+    百度文心一言的http调用封装类，支持大模型和Embedding模型的调用
     '''
     access_token_url = None
     model_baseurls = {}

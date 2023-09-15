@@ -109,7 +109,9 @@ class ChatLLM(LLMBase):
             if stream:
                 answer = ""
                 chunk = None
-                for chunk in response:
+                # zhipuai use sseclient
+                _response = response.events() if hasattr(response, 'events') else response
+                for chunk in _response:
                     content, stop, fullcontent = instance.get_chatcompletion_stream_content(chunk, answer, stream_callback, stream_callback_args)
                     if content:
                         if isinstance(content, str):
@@ -187,7 +189,9 @@ class ChatLLM(LLMBase):
 
             answer = ""
             chunk = None
-            for chunk in response:
+            # zhipuai use sseclient
+            _response = response.events() if hasattr(response, 'events') else response
+            for chunk in _response:
                 content, stop, fullcontent = instance.get_chatcompletion_stream_content(chunk, answer, stream_callback, stream_callback_args)
                 if content:
                     if isinstance(content, str):

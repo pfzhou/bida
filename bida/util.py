@@ -100,7 +100,8 @@ def calculate_text_elements_count(text):
 
     return words_count, punctuation_count, chinese_count, other_characters_count
 
-def mask_key(key, mask_len=5):
-    if len(key) < 2 + mask_len:
-        raise ValueError('Key is too short')
-    return key[:5] + '*' * mask_len + key[-5:] 
+def mask_key(key, show_len=3, mask_len=5):
+    if len(key) <= 2 * show_len:
+        return key
+    else:
+        return key[:show_len] + '*' * mask_len + key[-show_len:] 

@@ -11,7 +11,7 @@ from bida.core.prompt_template_base import PromptTemplateBase
 from bida.core.prompt_template_text import PromptTemplate_Text
 
 
-__version__ = "0.9.2"
+__version__ = "0.9.3"
 
 __all__ = [
     "Config",

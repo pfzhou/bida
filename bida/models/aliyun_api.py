@@ -14,8 +14,6 @@ class aliyun_tongyiqianwen_api(LLMAPIBase, EmbeddingAPIBase):
         """根据模型的配置，参数初始化"""
         super().init_Environment()
 
-        # 如果使用远端转发代理或本机代理，也需要读取配置信息
-        # 一般来说，这两个配置是互斥的，就是一个配置值，另外一个就要删掉或设为''
         ds.api_key = ModelAPIBase.get_config_value(self.api_config["api_key"])
 
         self.log_init(
@@ -29,18 +27,17 @@ class aliyun_tongyiqianwen_api(LLMAPIBase, EmbeddingAPIBase):
     ################################################
 
     def support_system_prompt(self) -> bool:
-        return False
+        return True
     
     def get_completion_content(self, response) -> str:
-        result = self.get_chatcompletion_content(response)
-        return result
+        raise Exception("不支持Completion模式，请调用ChatCompletion")
     
     def get_completion_stream_content(self, response, previous_data, stream_callback, stream_callback_args) -> Tuple[str, bool, str]:
-        return self.get_chatcompletion_stream_content(response, previous_data, stream_callback, stream_callback_args)
+        raise Exception("不支持Completion模式，请调用ChatCompletion")
 
     def get_chatcompletion_content(self, response) -> Any:
         if response.status_code != HTTPStatus.OK:
-                raise Exception(f"调用通义千问模型出错，错误码：{response.code}，状态：{response.status_code},错误信息：{response.message}")
+            raise Exception(f"调用通义千问模型出错，错误码：{response.code}，状态：{response.status_code},错误信息：{response.message}")
         result = response["output"]['text'].strip()
         return result
     
@@ -95,15 +92,7 @@ class aliyun_tongyiqianwen_api(LLMAPIBase, EmbeddingAPIBase):
             stream, 
             *args, **kwargs
             ):
-        # 调用ali的对象，不支持temperature和max_tokens，有max_length参数，可以在kwargs中传递进来
-        response = ds.Generation.call(
-            model=self.model_name,
-            prompt=prompt,
-            stream=stream,
-            # history                                      # Text模式下不使用聊天历史
-            *args, **kwargs
-        )
-        return response
+        raise Exception("不支持Completion模式，请调用ChatCompletion")
     
     def chatcompletion(
             self,
@@ -114,32 +103,11 @@ class aliyun_tongyiqianwen_api(LLMAPIBase, EmbeddingAPIBase):
             stream,
             *args, **kwargs
             ):
-        def merge_dicts(messages):
-            """
-            转换为ali的历史记录格式：
-            history = [
-                        {
-                            "user": "。。。",
-                            "bot": "。。。"
-                        }
-                    ]
-            """
-            history = []
-            current_pair = {}
-            for message in messages:
-                if message['role'] == 'user':
-                    current_pair["user"] = message['content']
-                elif message['role'] == 'assistant':
-                    current_pair["bot"] = message['content']
-                    history.append(current_pair)
-                    current_pair = {}
-
-            return history
+        chat_messages.append({"role": 'user', "content": prompt})
         # 调用ali的对象, 不支持temperature和max_tokens，有max_length参数，可以在kwargs中传递进来
         response = ds.Generation.call(
             model=self.model_name,
-            prompt=prompt,
-            history=merge_dicts(chat_messages),
+            messages=chat_messages,
             stream=stream,
             *args, **kwargs
             )

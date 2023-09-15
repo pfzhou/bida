@@ -1,0 +1,45 @@
+{
+    "model_type": "chatglm",
+    "alias": "zhipu,zhipuai,chatglm2",
+    "api_protocol": "chatglm_api:zhipuai_api",   
+    "api_config":{   
+        "api_key": {
+            "default": "",
+            "env":"zhipuai_api_key"
+        }
+    },
+    "chat_completions": [
+        {
+            "name": "chatglm_pro",
+            "alias": "pro",
+            "is_default": true,
+            "description": "适用于对知识量、推理能力、创造力要求较高的场景"
+        },
+        {
+            "name": "chatglm_std",
+            "alias": "std",
+            "is_default": false,
+            "description": "标准版模型，适用兼顾效果和成本的场景"
+        },
+        {
+            "name": "chatglm_lite",
+            "alias": "lite",
+            "is_default": false,
+            "description": "轻量版模型，适用对推理速度和成本敏感的场景"
+        },
+        {
+            "name": "characterglm",
+            "alias": "character",
+            "is_default": false,
+            "description": "超拟人大模型，角色扮演模型利用自然语言处理、机器学习和深度学习技术，使智能体能理解自然语言输入并生成适当响应"
+        }
+    ],
+    "embeddings": [
+        {
+            "name": "text_embedding",
+            "alias": "textembedding, embedding",
+            "is_default": true,
+            "description": "智谱AI的文本向量embedding模型"
+        }
+    ]
+}
