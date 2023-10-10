@@ -45,6 +45,11 @@ class LLMBase(ModelOperatorBase):
         self.max_tokens = max_tokens
         self.stream_callback =stream_callback
 
+    @staticmethod
+    def stream_callback_func(data):
+        '''默认处理流式输出的函数，仅显示每次返回的内容，不做其他处理'''          
+        print(data, end="", flush=True)
+
     def fix_default_params_with_kwargs(self, kwargs):
         '''
         因为temperature和max_tokens两个参数是Operator对象初始化时设置的默认值，已经添加到模型参数内，

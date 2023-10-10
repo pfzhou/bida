@@ -1,5 +1,5 @@
 {
-    "model_type": "senstime",
+    "model_type": "sensetime",
     "alias": "shangtang",
     "api_protocol": "sensetime_api:sensetime_api",
     "api_config":{

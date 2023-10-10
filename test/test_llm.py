@@ -196,3 +196,28 @@ def test_baichuan_chat_history(model_type, model_name):
     result = llm.chat("你可以怎么称呼我？")
     print(result)
     assert result.index("老周") >= 0
+
+
+#################################### tencent ##########################################
+# 测试直接调用
+@pytest.mark.parametrize("model_type, model_name",[("tencent","hy")])
+def test_tencent_models_chat(model_type, model_name):
+    llm = ChatLLM(model_type=model_type, max_tokens=20)
+    llm.model_name = model_name
+    assert llm.chat("hello") is not None
+
+# 测试steam调用
+@pytest.mark.parametrize("model_type, model_name",[("tencent","hy")])
+def test_tencent_models_chat_stream(model_type, model_name):
+    llm = ChatLLM(model_type=model_type, max_tokens=20,stream_callback=my_stream_process_data)
+    llm.model_name = model_name
+    assert llm.chat("hello") is not None
+
+# 测试会话历史是否有效
+@pytest.mark.parametrize("model_type, model_name",[("tencent","hy")])
+def test_tencent_chat_history(model_type, model_name):
+    llm = ChatLLM(model_type=model_type, model_name=model_name, max_tokens=20)
+    assert llm.chat("你好，我的名字是小吴，你可以称呼我'吴老师'") is not None
+    result = llm.chat("你可以怎么称呼我？")
+    print(result)
+    assert result.index("吴老师") >= 0

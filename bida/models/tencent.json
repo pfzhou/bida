@@ -1,0 +1,32 @@
+{
+    "model_type": "tencent",
+    "alias": "tx,qq",
+    "api_protocol": "tencent_api:tencent_api",
+    "api_config":{
+        "secret_key": {
+            "default": "" ,
+            "env":"tencent_secret_key"
+        },
+        "secret_id": {
+            "default": "" ,
+            "env":"tencent_secret_id"
+        },
+        "app_id": {
+            "default": "" ,
+            "env":"tencent_app_id"
+        },
+        "base_url": {
+            "default": "https://hunyuan.cloud.tencent.com/hyllm/v1/chat/completions",
+            "env":""
+        }
+    },
+    "chat_completions": [
+        {
+            "name": "hunyuan",
+            "alias": "hy",
+            "is_default": true,
+            "max_tokens": 4000,   
+            "description": "腾讯混元大模型,一次输入：最大支持3k tokens,40轮历史消息"
+        }
+    ]
+}

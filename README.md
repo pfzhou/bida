@@ -22,20 +22,16 @@ print(result)
 ```python
 from bida import ChatLLM
 
-# 定义一个处理流式输出的函数，这里仅显示每次返回的内容，不做其他处理
-def my_stream_process_data(data):            
-    print(data, end="", flush=True)
-
 llm = ChatLLM(
     model_type="baidu",                                 # 调用百度文心一言
-    stream_callback=my_stream_process_data)             # 流式输出
+    stream_callback=ChatLLM.stream_callback_func)       # 使用默认的流式输出函数
 
 llm.chat("你好呀，请问你是谁？") 
 ```
 
 
 
-## 已支持模型 ( 持续更新中... )
+## 已支持模型 ( 持续更新中... 截止2023年10月，[国内开放商用API的模型已经全部支持](https://mp.weixin.qq.com/s/Hjg1lYXGdzOP-jUbXuJyXA))
 
 | 模型公司         | 模型类型  | 模型名称         |  是否支持   | 说明                      |
 |:---------------:|:---------:|:---------------:| :--------: |:--------------------------|
@@ -64,6 +60,8 @@ llm.chat("你好呀，请问你是谁？")
 | 商汤-日日新 | Chat | [nova-ptc-xl-v1, nova-ptc-xs-v1](https://platform.sensenova.cn/#/doc?path=/chat/GetStarted/APIList.md) | √ | SenseNova 商汤日日新大模型 |
 | |
 | 百川智能 | Chat | [baichuan-53b-v1.0.0](https://platform.baichuan-ai.com/docs/api) | √ | 百川53B大模型 |
+| |
+| 腾讯-混元 | Chat | [Tencent Hunyuan](https://cloud.tencent.com/document/product/1729/97732) | √ | 腾讯混元大模型 |
 | |
 | 自行部署的开源模型 | Chat, Completion, Embeddings | 各类开源模型 | √ | 使用[FastChat](https://github.com/lm-sys/FastChat)等部署的开源模型，提供的Web API接口遵循[OpenAI-Compatible RESTful APIs](https://github.com/lm-sys/FastChat/blob/main/docs/openai_api.md)，可以直接支持，详见下文的模型接入章节 |
 | |
@@ -178,6 +176,8 @@ llm = ChatLLM(model_type="xfyun")
 llm = ChatLLM(model_type="senstime")
 # baichuan ai
 llm = ChatLLM(model_type="baichuan")
+# tencent ai
+llm = ChatLLM(model_type="tencent")
 ```
 
 #### 2.1 Chat模式
@@ -199,12 +199,8 @@ print(result)
 ```python
 from bida import ChatLLM
 
-# 定义一个处理流式输出的函数，这里仅显示每次返回的内容，不做其他处理
-def my_stream_process_data(data):            
-    print(data, end="", flush=True)
-
 # stream调用
-llm = ChatLLM(model_type="baidu", stream_callback=my_stream_process_data)
+llm = ChatLLM(model_type="baidu", stream_callback=ChatLLM.stream_callback_func)
 
 result = llm.chat("你好呀，请问你是谁？")      
 ```
@@ -214,10 +210,7 @@ result = llm.chat("你好呀，请问你是谁？")
 ```python
 from bida import ChatLLM
 
-def my_stream_process_data(data):            
-    print(data, end="", flush=True)
-
-llm = ChatLLM(model_type="baidu", stream_callback=my_stream_process_data) 
+llm = ChatLLM(model_type="baidu", stream_callback=ChatLLM.stream_callback_func) 
 
 result = llm.chat("你是一个服务助理，请简洁回答我的问题。我的名字是老周。")
 result = llm.chat("我的名字是？")
